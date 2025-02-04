@@ -11,7 +11,17 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 # Copia, para dentro do diretório raiz da aplicação dentro do container (workdir), todos os arquivos que estão no mesmo diretório que o arquivo Dockerfile se encontra:
 COPY . .
+# Executa o comando que faz o build da aplicação:
+RUN pnpm build
+# Executa o comando que descarta as dependências de desenvolvimento:
+RUN pnpm prune --prod
+# Instrução que declara/cria uma variável de ambiente dentro do nosso container:
+ENV CLOUDFLARE_ACCESS_KEY_ID="#"
+ENV CLOUDFLARE_SECRET_ACCESS_KEY="#"
+ENV CLOUDFLARE_BUCKET="#"
+ENV CLOUDFLARE_ACCOUNT_ID="#"
+ENV CLOUDFLARE_PUBLIC_URL="http://localhost"
 # Expõe a porta onde a aplicação executa dentro do container:
 EXPOSE 3333
 # Determina o comando que vai "segurar" a execução do container. Em outras palavras, o comando que vai manter o container executando:
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "start"]
