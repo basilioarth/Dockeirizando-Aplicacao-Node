@@ -28,6 +28,8 @@ RUN pnpm prune --prod
 
 # Usa a imagem de uma versão reduzida do Node.js como base e cria um alias "deploy":
 FROM node:20-alpine3.21 AS deploy
+# Popularmente, o USER 1000 é o nosso primeiro usuário linux com acesso não root. Estamos dizendo que queremos usar esse usuário para rodar o container com ele:
+USER 1000
 # Cria um workdir com o mesmo path do estágio anterior (poderia ser outro path):
 WORKDIR /usr/src/app
 # Copia, do estágio de build, a pasta que possui os arquivos de build e salva no diretório de trabalho:
