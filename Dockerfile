@@ -26,8 +26,8 @@ RUN pnpm build
 # Executa o comando que descarta as dependências de desenvolvimento:
 RUN pnpm prune --prod
 
-# Usa a imagem de uma versão reduzida do Node.js como base e cria um alias "deploy":
-FROM node:20-alpine3.21 AS deploy
+# Usa a imagem de uma versão distroless do Node.js feita pelo Chainguard como base e cria um alias "deploy":
+FROM cgr.dev/chainguard/node:latest AS deploy
 # Popularmente, o USER 1000 é o nosso primeiro usuário linux com acesso não root. Estamos dizendo que queremos usar esse usuário para rodar o container com ele:
 USER 1000
 # Cria um workdir com o mesmo path do estágio anterior (poderia ser outro path):
@@ -47,4 +47,4 @@ ENV CLOUDFLARE_PUBLIC_URL="http://localhost"
 # Expõe a porta onde a aplicação executa dentro do container:
 EXPOSE 3333
 # Determina o comando que vai "segurar" a execução do container. Em outras palavras, o comando que vai manter o container executando:
-CMD ["node", "dist/server.mjs"]
+CMD ["dist/server.mjs"]
