@@ -38,12 +38,6 @@ COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 # Copia, do estágio de build, a pasta que possui os arquivos de cofiguração e salva no diretório de trabalho:
 COPY --from=build /usr/src/app/package.json ./package.json
-# Instrução que declara/cria uma variável de ambiente dentro do nosso container:
-ENV CLOUDFLARE_ACCESS_KEY_ID="#"
-ENV CLOUDFLARE_SECRET_ACCESS_KEY="#"
-ENV CLOUDFLARE_BUCKET="#"
-ENV CLOUDFLARE_ACCOUNT_ID="#"
-ENV CLOUDFLARE_PUBLIC_URL="http://localhost"
 # Expõe a porta onde a aplicação executa dentro do container:
 EXPOSE 3333
 # Determina o comando que vai "segurar" a execução do container. Em outras palavras, o comando que vai manter o container executando:
